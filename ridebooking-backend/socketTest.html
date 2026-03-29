@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script>
+  const socket = io('http://localhost:5000', {
+    auth: { token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YzhhZjgxMGNjNzg4NjEwZjlhMDFlMiIsInJvbGUiOiJyaWRlciIsImlhdCI6MTc3NDc2MDI2MSwiZXhwIjoxNzc1MzY1MDYxfQ._f9nCAig5svSpTL4xhVxcpVRpE4cz4ubsBUH2RUvpVI' }
+  });
+  socket.on('connected', (data) => {
+    console.log('Connected!', data);
+  });
+  socket.on('connect_error', (err) => {
+    console.log('Error:', err.message);
+  });
+</script>
+</body>
+</html>
