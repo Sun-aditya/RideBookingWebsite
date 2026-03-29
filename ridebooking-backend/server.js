@@ -29,12 +29,20 @@ const app = express();
 app.use(helmet());
 
 // Middleware - CORS
-app.use(
-  cors({
-    origin: process.env.NODE_ENV === "development" ? "*" : ["https://yourdomain.com"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: process.env.NODE_ENV === "development" ? "*" : ["https://yourdomain.com"],
+//     credentials: true,
+//   })
+// );
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    process.env.CLIENT_URL
+  ].filter(Boolean),
+  credentials: true
+}));
 
 // Middleware - Logging
 app.use(morgan("dev"));

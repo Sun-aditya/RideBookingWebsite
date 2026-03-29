@@ -51,14 +51,24 @@ const Ride = require("../models/Ride");
 const Driver = require("../models/Driver");
 
 const initializeSocket = (server) => {
+  // const io = new Server(server, {
+  //   cors: {
+  //     origin: process.env.CLIENT_URL || "http://localhost:5173",
+  //     methods: ["GET", "POST"],
+  //     credentials: true,
+  //   },
+  //   pingTimeout: 60000,
+  //   pingInterval: 25000,
   const io = new Server(server, {
     cors: {
-      origin: process.env.CLIENT_URL || "http://localhost:5173",
+      origin: [
+        "http://localhost:5173",
+        "http://localhost:3000",
+        process.env.CLIENT_URL
+      ].filter(Boolean),
       methods: ["GET", "POST"],
       credentials: true,
     },
-    pingTimeout: 60000,
-    pingInterval: 25000,
   });
 
   io.use(socketAuthMiddleware);
