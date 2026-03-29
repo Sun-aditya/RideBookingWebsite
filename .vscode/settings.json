@@ -1,0 +1,31 @@
+{
+  "cSpell.words": [
+    "Monorepo",
+    "RideBooking",
+    "RideBookinMain",
+    "ridebooking",
+    "ridebooking-backend",
+    "Vite",
+    "npm",
+    "Axios",
+    "api",
+    "rideflow",
+    "bcryptjs",
+    "otp",
+    "sos",
+    "nodemon",
+    "socketio",
+    "framer",
+    "localhost",
+    "MONGODB_URI",
+    "JWT_SECRET",
+    "JWT_EXPIRE",
+    "VITE_API_URL",
+    "VITE_SOCKET_URL",
+    "2dsphere",
+    "GeoJSON"
+  ],
+  "markdownlint.config": {
+    "MD013": false
+  }
+}
