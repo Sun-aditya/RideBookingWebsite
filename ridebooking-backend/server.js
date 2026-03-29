@@ -35,15 +35,35 @@ app.use(helmet());
 //     credentials: true,
 //   })
 // );
+// app.use(cors({
+//   origin: [
+//     "http://localhost:5173",
+//     "http://localhost:3000",
+//     process.env.CLIENT_URL
+//   ].filter(Boolean),
+//   credentials: true
+// }));
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:3000",
-    process.env.CLIENT_URL
-  ].filter(Boolean),
-  credentials: true
+  origin: function(origin, callback) {
+    const allowedOrigins = [
+      "http://localhost:5173",
+      "http://localhost:3000",
+      process.env.CLIENT_URL
+    ].filter(Boolean)
+    
+    // Allow requests with no origin (mobile apps, Postman)
+    if (!origin) return callback(null, true)
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error(`CORS blocked: ${origin}`))
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
 // Middleware - Logging
 app.use(morgan("dev"));
 

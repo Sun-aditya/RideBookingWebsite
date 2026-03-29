@@ -60,15 +60,27 @@ const initializeSocket = (server) => {
   //   pingTimeout: 60000,
   //   pingInterval: 25000,
   const io = new Server(server, {
-    cors: {
-      origin: [
-        "http://localhost:5173",
-        "http://localhost:3000",
-        process.env.CLIENT_URL
-      ].filter(Boolean),
-      methods: ["GET", "POST"],
-      credentials: true,
-    },
+    // cors: {
+    //   origin: [
+    //     "http://localhost:5173",
+    //     "http://localhost:3000",
+    //     process.env.CLIENT_URL
+    //   ].filter(Boolean),
+    //   methods: ["GET", "POST"],
+    //   credentials: true,
+    // },
+    origin: function(origin, callback) {
+  const allowedOrigins = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    process.env.CLIENT_URL
+  ].filter(Boolean)
+  if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    callback(null, true)
+  } else {
+    callback(new Error(`CORS blocked: ${origin}`))
+  }
+},
   });
 
   io.use(socketAuthMiddleware);
